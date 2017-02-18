@@ -1,0 +1,14 @@
+{
+  "name": "timestamp-service",
+  "version": "1.0.0",
+  "description": "Service that checks if the parameter contains a unix timestamp or date, and returns both",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rasika",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
