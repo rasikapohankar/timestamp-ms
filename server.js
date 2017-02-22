@@ -1,19 +1,6 @@
-var express = require('express'),
-    moment  = require('moment'),
+var express     = require('express'),
+    moment      = require('moment'),
     parseFormat = require('moment-parseformat');
-
-
-
-function test(ip) {
-    var format = parseFormat(ip);
-    console.log(format + '-->' + moment(ip, format).isValid());
-}
-
-
-test('January 1st, 2016');
-test('January 32nd, 2016');
-test('January 31st, 2016');
-test('1st January, 2016');
 
 var app = express();
 
@@ -24,6 +11,7 @@ app.get('/timestamp/:input', function(request, response) {
 
     if(isUnixTimestamp(input)) {
         output.unix = input;
+        input = Number(input);
     } else if(isDate(input)) {
         output.unix = toUnixTimestamp(input);
     }
@@ -34,21 +22,26 @@ app.get('/timestamp/:input', function(request, response) {
 
 
 function isUnixTimestamp(input) {
-    return !isNaN(input) && parseInt(Number(input)) == input;
+    return !isNaN(input) && parseInt(Number(input)) == input && input >= 0;
 }
 
 function isDate(input) {
-    return moment(input).isValid();
+    if(Number(input) < 0)
+        return false;
+
+    var format = parseFormat(input);
+    return moment(input, format).isValid();
 }
 
-function toUnixTimeStamp(input) {
-    return new Date(input).getTime();
+function toUnixTimestamp(input) {
+    return moment(input, 'DD-MM-YYYY').valueOf();
 }
 
 function toDate(input) {
-    return new Date(Number(input)).toDateString();
+    if(isDate(input)) {
+        return moment(input, 'DD-MM-YYYY').toDate();
+    }
+    return null;
 }
 
-app.listen(8081, function() {
-    console.log('Listening on port 8081..');
-});
+app.listen(8081);
