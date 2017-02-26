@@ -1,3 +1,5 @@
+//TODO: Add test file using something
+
 var express     = require('express'),
     moment      = require('moment'),
     parseFormat = require('moment-parseformat');
@@ -26,20 +28,20 @@ function isUnixTimestamp(input) {
 }
 
 function isDate(input) {
-    if(Number(input) < 0)
+    if(Number(input) < 0) {
         return false;
-
-    var format = parseFormat(input);
-    return moment(input, format).isValid();
+    }
+    console.log(parseFormat(input)); //correct format, but senseless date 1st Jan 2020, 1st Jan 202
+    return moment(input, parseFormat(input)).isValid();
 }
 
 function toUnixTimestamp(input) {
-    return moment(input, 'DD-MM-YYYY').valueOf();
+    return moment(input, parseFormat(input)).valueOf();
 }
 
 function toDate(input) {
     if(isDate(input)) {
-        return moment(input, 'DD-MM-YYYY').toDate();
+        return moment(input, parseFormat(input)).toDate();
     }
     return null;
 }
