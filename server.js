@@ -1,5 +1,3 @@
-//TODO: Add test file using something
-
 var express     = require('express'),
     moment      = require('moment'),
     parseFormat = require('moment-parseformat');
@@ -31,7 +29,6 @@ function isDate(input) {
     if(Number(input) < 0) {
         return false;
     }
-    console.log(parseFormat(input)); //correct format, but senseless date 1st Jan 2020, 1st Jan 202
     return moment(input, parseFormat(input)).isValid();
 }
 
