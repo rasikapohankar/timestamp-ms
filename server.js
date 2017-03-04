@@ -1,6 +1,7 @@
 var express     = require('express'),
     moment      = require('moment'),
-    parseFormat = require('moment-parseformat');
+    parseFormat = require('moment-parseformat'),
+    port = process.argv[2];
 
 var app = express();
 
@@ -43,4 +44,4 @@ function toDate(input) {
     return null;
 }
 
-app.listen(8081);
+app.listen(port);
