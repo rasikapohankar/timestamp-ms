@@ -1,5 +1,4 @@
-var assert  = require('assert'),
-    request = require('request'),
+var request = require('request'),
     expect  = require('chai').expect,
     url     = 'http://localhost:8081/timestamp/';
 
